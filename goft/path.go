@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 func cleanPath(p string) string {
 	const stackBufSize = 128

@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 import (
 	"gopkg.in/yaml.v2"

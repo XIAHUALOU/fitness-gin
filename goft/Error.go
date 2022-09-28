@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	HTTP_STATUS = "GOFT_STATUS"
+	HTTP_STATUS = "FiTGIN_STATUS"
 )
 
 func panicTrace(kb int) string {

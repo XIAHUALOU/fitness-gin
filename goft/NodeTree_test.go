@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 import (
 	"fmt"
@@ -20,9 +20,9 @@ func GenTestRouter() *TreeRouter {
 	r.addRoute("GET", "/news", nil)
 	return r
 }
-func GenTestGoftRouter() *GoftTree {
+func GenTestFitGinRouter() *FitGinTree {
 	tmpHandler := func() {}
-	r := NewGoftTree()
+	r := NewFitGinTree()
 	r.addRoute("GET", "/", tmpHandler)
 	r.addRoute("GET", "/v1/", tmpHandler)
 	r.addRoute("GET", "/v1", tmpHandler)
@@ -132,7 +132,7 @@ func TestTreeWildcard(t *testing.T) {
 	})
 }
 
-func TestGoftTreeRouter_getRoute(t *testing.T) {
+func TestFitGinTreeRouter_getRoute(t *testing.T) {
 	tests := []struct {
 		name     string
 		method   string
@@ -151,7 +151,7 @@ func TestGoftTreeRouter_getRoute(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			r := GenTestGoftRouter()
+			r := GenTestFitGinRouter()
 			getNode := r.getRoute(tt.method, tt.path)
 			fmt.Println("show:", getNode.tsr)
 			if !reflect.DeepEqual(getNode.fullPath, tt.wantPath) {

@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 import (
 	"net/url"
@@ -93,7 +93,7 @@ type node struct {
 	path      string
 	indices   string
 	children  []*node
-	handlers  interface{} //edit by goft 0.2.3
+	handlers  interface{} //edit by FitGin 0.2.3
 	priority  uint32
 	nType     nodeType
 	maxParams uint8

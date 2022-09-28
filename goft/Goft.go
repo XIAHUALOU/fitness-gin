@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 import (
 	"fmt"
@@ -15,25 +15,25 @@ type Bean interface {
 }
 
 var Empty = &struct{}{}
-var innerRouter *GoftTree // inner tree node . backup httpmethod and path
+var innerRouter *FitGinTree // inner tree node . backup httpmethod and path
 var innerRouter_once sync.Once
 
-func getInnerRouter() *GoftTree {
+func getInnerRouter() *FitGinTree {
 	innerRouter_once.Do(func() {
-		innerRouter = NewGoftTree()
+		innerRouter = NewFitGinTree()
 	})
 	return innerRouter
 }
 
-type Goft struct {
+type FitGin struct {
 	*gin.Engine
 	g            *gin.RouterGroup // 保存 group对象
 	exprData     map[string]interface{}
 	currentGroup string // temp-var for group string
 }
 
-func Ignite(ginMiddlewares ...gin.HandlerFunc) *Goft {
-	g := &Goft{Engine: gin.New(),
+func Ignite(ginMiddlewares ...gin.HandlerFunc) *FitGin {
+	g := &FitGin{Engine: gin.New(),
 		exprData: map[string]interface{}{},
 	}
 	g.Use(ErrorHandler()) //强迫加载的异常处理中间件
@@ -49,7 +49,7 @@ func Ignite(ginMiddlewares ...gin.HandlerFunc) *Goft {
 	}
 	return g
 }
-func (this *Goft) Launch() {
+func (this *FitGin) Launch() {
 	var port int32 = 8080
 	if config := Injector.BeanFactory.Get((*SysConfig)(nil)); config != nil {
 		port = config.(*SysConfig).Server.Port
@@ -58,13 +58,13 @@ func (this *Goft) Launch() {
 	getCronTask().Start()
 	this.Run(fmt.Sprintf(":%d", port))
 }
-func (this *Goft) LaunchWithPort(port int) {
+func (this *FitGin) LaunchWithPort(port int) {
 
 	this.applyAll()
 	getCronTask().Start()
 	this.Run(fmt.Sprintf(":%d", port))
 }
-func (this *Goft) Handle(httpMethod, relativePath string, handler interface{}) *Goft {
+func (this *FitGin) Handle(httpMethod, relativePath string, handler interface{}) *FitGin {
 	if h := Convert(handler); h != nil {
 		methods := strings.Split(httpMethod, ",")
 		for _, method := range methods {
@@ -75,7 +75,7 @@ func (this *Goft) Handle(httpMethod, relativePath string, handler interface{}) *
 	}
 	return this
 }
-func (this *Goft) getPath(relativePath string) string {
+func (this *FitGin) getPath(relativePath string) string {
 	g := "/" + this.currentGroup
 	if g == "/" {
 		g = ""
@@ -84,7 +84,7 @@ func (this *Goft) getPath(relativePath string) string {
 	g = strings.Replace(g, "//", "/", -1)
 	return g
 }
-func (this *Goft) HandleWithFairing(httpMethod, relativePath string, handler interface{}, fairings ...Fairing) *Goft {
+func (this *FitGin) HandleWithFairing(httpMethod, relativePath string, handler interface{}, fairings ...Fairing) *FitGin {
 	if h := Convert(handler); h != nil {
 		methods := strings.Split(httpMethod, ",")
 		for _, f := range fairings {
@@ -100,7 +100,7 @@ func (this *Goft) HandleWithFairing(httpMethod, relativePath string, handler int
 }
 
 // 注册中间件
-func (this *Goft) Attach(f ...Fairing) *Goft {
+func (this *FitGin) Attach(f ...Fairing) *FitGin {
 	for _, f1 := range f {
 		Injector.BeanFactory.Set(f1)
 	}
@@ -108,18 +108,18 @@ func (this *Goft) Attach(f ...Fairing) *Goft {
 	return this
 }
 
-func (this *Goft) Beans(beans ...Bean) *Goft {
+func (this *FitGin) Beans(beans ...Bean) *FitGin {
 	for _, bean := range beans {
 		this.exprData[bean.Name()] = bean
 		Injector.BeanFactory.Set(bean)
 	}
 	return this
 }
-func (this *Goft) Config(cfgs ...interface{}) *Goft {
+func (this *FitGin) Config(cfgs ...interface{}) *FitGin {
 	Injector.BeanFactory.Config(cfgs...)
 	return this
 }
-func (this *Goft) applyAll() {
+func (this *FitGin) applyAll() {
 	for t, v := range Injector.BeanFactory.GetBeanMapper() {
 		if t.Elem().Kind() == reflect.Struct {
 			Injector.BeanFactory.Apply(v.Interface())
@@ -127,7 +127,7 @@ func (this *Goft) applyAll() {
 	}
 }
 
-func (this *Goft) Mount(group string, classes ...IClass) *Goft {
+func (this *FitGin) Mount(group string, classes ...IClass) *FitGin {
 	this.g = this.Group(group)
 	for _, class := range classes {
 		this.currentGroup = group
@@ -139,7 +139,7 @@ func (this *Goft) Mount(group string, classes ...IClass) *Goft {
 }
 
 // 0/3 * * * * *  //增加定时任务
-func (this *Goft) Task(cron string, expr interface{}) *Goft {
+func (this *FitGin) Task(cron string, expr interface{}) *FitGin {
 	var err error
 	if f, ok := expr.(func()); ok {
 		_, err = getCronTask().AddFunc(cron, f)

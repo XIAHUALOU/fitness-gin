@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 type RouteInfo struct {
 	Method      string
@@ -7,17 +7,17 @@ type RouteInfo struct {
 	HandlerFunc interface{}
 }
 type RoutesInfo []RouteInfo
-type GoftTree struct {
+type FitGinTree struct {
 	trees methodTrees
 }
 
-func NewGoftTree() *GoftTree {
-	tree := &GoftTree{
+func NewFitGinTree() *FitGinTree {
+	tree := &FitGinTree{
 		trees: make(methodTrees, 0, 9),
 	}
 	return tree
 }
-func (this *GoftTree) addRoute(method, path string, handlers interface{}) {
+func (this *FitGinTree) addRoute(method, path string, handlers interface{}) {
 	root := this.trees.get(method)
 	if root == nil {
 		root = new(node)
@@ -26,7 +26,7 @@ func (this *GoftTree) addRoute(method, path string, handlers interface{}) {
 	}
 	root.addRoute(path, handlers)
 }
-func (this *GoftTree) getRoute(httpMethod, path string) nodeValue {
+func (this *FitGinTree) getRoute(httpMethod, path string) nodeValue {
 	t := this.trees
 	for i, tl := 0, len(t); i < tl; i++ {
 		if t[i].method != httpMethod {

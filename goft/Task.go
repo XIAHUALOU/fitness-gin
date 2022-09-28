@@ -1,11 +1,11 @@
-package goft
+package FitGin
 
 import (
 	"github.com/robfig/cron/v3"
 	"sync"
 )
 
-//goft-task
+//FitGin-task
 
 type TaskFunc func(params ...interface{})
 

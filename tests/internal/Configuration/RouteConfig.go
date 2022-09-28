@@ -6,7 +6,7 @@ import (
 )
 
 type RouterConfig struct {
-	Goft       *goft.Goft          `inject:"-"`
+	FitGin     *FitGin.FitGin      `inject:"-"`
 	IndexClass *classes.IndexClass `inject:"-"`
 }
 
@@ -14,8 +14,8 @@ func NewRouterConfig() *RouterConfig {
 	return &RouterConfig{}
 }
 func (this *RouterConfig) IndexRoutes() interface{} {
-	this.Goft.Handle("GET", "/a", this.IndexClass.TestA)
-	this.Goft.Handle("GET", "/b", this.IndexClass.TestA)
-	this.Goft.Handle("GET", "/void", this.IndexClass.IndexVoid)
-	return goft.Empty
+	this.FitGin.Handle("GET", "/a", this.IndexClass.TestA)
+	this.FitGin.Handle("GET", "/b", this.IndexClass.TestA)
+	this.FitGin.Handle("GET", "/void", this.IndexClass.IndexVoid)
+	return FitGin.Empty
 }

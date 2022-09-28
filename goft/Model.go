@@ -1,4 +1,4 @@
-package goft
+package FitGin
 
 import (
 	"encoding/json"
