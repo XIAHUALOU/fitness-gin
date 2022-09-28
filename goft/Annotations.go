@@ -36,6 +36,7 @@ type Value struct {
 func (this *Value) SetTag(tag reflect.StructTag) {
 	this.tag = tag
 }
+
 func (this *Value) String() string {
 	get_prefix := this.tag.Get("prefix")
 	if get_prefix == "" {
