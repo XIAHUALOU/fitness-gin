@@ -1,6 +1,6 @@
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
-github.com/XIAHUALOU/fitness-expr v1.0.0 h1:o1ggAkbz61+8nB+/ETeG1xQU5oyWXqYwu++3Ue84chM=
-github.com/XIAHUALOU/fitness-expr v1.0.0/go.mod h1:D0Tj+nM7K5kNnsAF+hae0/2H661KPEpfvqYTd4oetJ0=
+github.com/XIAHUALOU/fitness-expr v1.0.1 h1:vORBRDkEm1jdjSsnoa1nZ+VJdGSNswJO4jmR4Lhosx8=
+github.com/XIAHUALOU/fitness-expr v1.0.1/go.mod h1:D0Tj+nM7K5kNnsAF+hae0/2H661KPEpfvqYTd4oetJ0=
 github.com/XIAHUALOU/fitness-ioc v1.0.0 h1:TSSJh+jAge8bDbkiFCYszP48i9Nb34RP8BaxpbuRvKg=
 github.com/XIAHUALOU/fitness-ioc v1.0.0/go.mod h1:MBRL0MNQq7+Ysb8Qvys5H9ehCIaJn75sgPWuy2EhWvg=
 github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
