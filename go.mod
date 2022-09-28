@@ -3,7 +3,7 @@ module github.com/XIAHUALOU/fitness-gin
 go 1.18
 
 require (
-	github.com/XIAHUALOU/fitness-ioc v1.0.0
+	github.com/XIAHUALOU/fitness-ioc v1.0.1
 	github.com/gin-gonic/gin v1.7.0
 	github.com/jinzhu/gorm v1.9.15
 	github.com/robfig/cron/v3 v3.0.1
