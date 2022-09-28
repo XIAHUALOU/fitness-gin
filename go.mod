@@ -11,7 +11,7 @@ require (
 )
 
 require (
-	github.com/XIAHUALOU/fitness-expr v1.0.0 // indirect
+	github.com/XIAHUALOU/fitness-expr v1.0.1 // indirect
 	github.com/antlr/antlr4 v0.0.0-20201020194047-0a7eaede42b0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
