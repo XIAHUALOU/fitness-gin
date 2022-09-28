@@ -38,7 +38,7 @@ func errorFunc() gin.HandlerFunc {
 func main() {
 	//Ignite方法 支持 配置原始Gin 中间件，全局的
 	goft.Ignite(cros(), errorFunc()).
-		Config(Configuration.NewMyConfig()).
+		//Config(Configuration.NewMyConfig()).
 		Attach(fairing.NewGlobalFairing()).
 		Mount("", classes.NewIndexClass()). //控制器，挂载到v1
 		Config(Configuration.NewRouterConfig()).
