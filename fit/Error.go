@@ -54,13 +54,13 @@ func ErrorHandler() gin.HandlerFunc {
 				}
 				if strE, ok := e.(string); ok {
 					printError(strE)
-					context.AbortWithStatusJSON(status, gin.H{"error": strE})
+					context.AbortWithStatusJSON(status, gin.H{"code": "-1", "msg": strE})
 				} else {
 					if pe, ok := e.(error); ok {
 						printError(pe.Error())
-						context.AbortWithStatusJSON(status, gin.H{"error": pe.Error()})
+						context.AbortWithStatusJSON(status, gin.H{"code": "-1", "msg": pe.Error()})
 					} else {
-						context.AbortWithStatusJSON(status, e)
+						context.AbortWithStatusJSON(status, gin.H{"code": "-1", "msg": e})
 					}
 
 				}
