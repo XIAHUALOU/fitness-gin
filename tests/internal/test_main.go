@@ -1,10 +1,9 @@
 package main
 
 import (
-	"github.com/XIAHUALOU/fitness-gin/goft"
+	"github.com/XIAHUALOU/fitness-gin/fit"
 	"github.com/XIAHUALOU/fitness-gin/tests/internal/Configuration"
 	"github.com/XIAHUALOU/fitness-gin/tests/internal/classes"
-	"github.com/XIAHUALOU/fitness-gin/tests/internal/fairing"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -39,7 +38,7 @@ func main() {
 	//Ignite方法 支持 配置原始Gin 中间件，全局的
 	FitGin.Ignite(cros(), errorFunc()).
 		//Config(Configuration.NewMyConfig()).
-		Attach(fairing.NewGlobalFairing()).
+		//Attach(fairing.NewGlobalFairing()).
 		Mount("", classes.NewIndexClass()). //控制器，挂载到v1
 		Config(Configuration.NewRouterConfig()).
 		Launch()

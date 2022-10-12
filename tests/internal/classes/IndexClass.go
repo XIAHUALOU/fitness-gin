@@ -2,7 +2,7 @@ package classes
 
 import (
 	"fmt"
-	"github.com/XIAHUALOU/fitness-gin/goft"
+	"github.com/XIAHUALOU/fitness-gin/fit"
 	"github.com/XIAHUALOU/fitness-gin/tests/internal/Services"
 	"github.com/XIAHUALOU/fitness-gin/tests/internal/fairing"
 	"github.com/gin-gonic/gin"

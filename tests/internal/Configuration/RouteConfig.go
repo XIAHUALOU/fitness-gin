@@ -1,7 +1,7 @@
 package Configuration
 
 import (
-	"github.com/XIAHUALOU/fitness-gin/goft"
+	"github.com/XIAHUALOU/fitness-gin/fit"
 	"github.com/XIAHUALOU/fitness-gin/tests/internal/classes"
 )
 
