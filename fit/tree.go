@@ -177,7 +177,7 @@ walk:
 			n.fullPath = fullPath[:parentFullPathIndex+i]
 		}
 
-		// Make new node a child of this node
+		// Make new node a child of self node
 		if i < len(path) {
 			path = path[i:]
 
@@ -301,7 +301,7 @@ func (n *node) insertChild(numParams uint8, path string, fullPath string, handle
 			panic("wildcards must be named with a non-empty name in path '" + fullPath + "'")
 		}
 
-		// Check if this node has existing children which would be
+		// Check if self node has existing children which would be
 		// unreachable if we insert the wildcard here
 		if len(n.children) > 0 {
 			panic("wildcard segment '" + wildcard +
@@ -415,7 +415,7 @@ walk: // Outer loop for walking the tree
 		prefix := n.path
 		if path == prefix {
 			// We should have reached the node containing the handle.
-			// Check if this node has a handle registered.
+			// Check if self node has a handle registered.
 			if value.handlers = n.handlers; value.handlers != nil {
 				value.fullPath = n.fullPath
 				return
@@ -426,7 +426,7 @@ walk: // Outer loop for walking the tree
 				return
 			}
 
-			// No handle found. Check if a handle for this path + a
+			// No handle found. Check if a handle for self path + a
 			// trailing slash exists for trailing slash recommendation
 			indices := n.indices
 			for i, max := 0, len(indices); i < max; i++ {
@@ -443,7 +443,7 @@ walk: // Outer loop for walking the tree
 
 		if len(path) > len(prefix) && path[:len(prefix)] == prefix {
 			path = path[len(prefix):]
-			// If this node does not have a wildcard (param or catchAll)
+			// If self node does not have a wildcard (param or catchAll)
 			// child,  we can just look up the next child node and continue
 			// to walk down the tree
 			if !n.wildChild {
@@ -508,7 +508,7 @@ walk: // Outer loop for walking the tree
 					return
 				}
 				if len(n.children) == 1 {
-					// No handle found. Check if a handle for this path + a
+					// No handle found. Check if a handle for self path + a
 					// trailing slash exists for TSR recommendation
 					n = n.children[0]
 					value.tsr = n.path == "/" && n.handlers != nil
@@ -560,7 +560,7 @@ func (n *node) findCaseInsensitivePath(path string, fixTrailingSlash bool) (ciPa
 
 		if len(path) == 0 {
 			// We should have reached the node containing the handle.
-			// Check if this node has a handle registered.
+			// Check if self node has a handle registered.
 			if n.handlers != nil {
 				return ciPath, true
 			}
@@ -582,7 +582,7 @@ func (n *node) findCaseInsensitivePath(path string, fixTrailingSlash bool) (ciPa
 			return
 		}
 
-		// If this node does not have a wildcard (param or catchAll) child,
+		// If self node does not have a wildcard (param or catchAll) child,
 		// we can just look up the next child node and continue to walk down
 		// the tree
 		if !n.wildChild {
@@ -635,7 +635,7 @@ func (n *node) findCaseInsensitivePath(path string, fixTrailingSlash bool) (ciPa
 				return ciPath, true
 			}
 			if fixTrailingSlash && len(n.children) == 1 {
-				// No handle found. Check if a handle for this path + a
+				// No handle found. Check if a handle for self path + a
 				// trailing slash exists
 				n = n.children[0]
 				if n.path == "/" && n.handlers != nil {

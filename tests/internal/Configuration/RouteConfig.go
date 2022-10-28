@@ -13,9 +13,9 @@ type RouterConfig struct {
 func NewRouterConfig() *RouterConfig {
 	return &RouterConfig{}
 }
-func (this *RouterConfig) IndexRoutes() interface{} {
-	this.FitGin.Handle("GET", "/a", this.IndexClass.TestA)
-	this.FitGin.Handle("GET", "/b", this.IndexClass.TestA)
-	this.FitGin.Handle("GET", "/void", this.IndexClass.IndexVoid)
+func (self *RouterConfig) IndexRoutes() interface{} {
+	self.FitGin.Handle("GET", "/a", self.IndexClass.TestA)
+	self.FitGin.Handle("GET", "/b", self.IndexClass.TestA)
+	self.FitGin.Handle("GET", "/void", self.IndexClass.IndexVoid)
 	return FitGin.Empty
 }

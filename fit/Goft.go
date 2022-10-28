@@ -49,34 +49,34 @@ func Ignite(ginMiddlewares ...gin.HandlerFunc) *FitGin {
 	}
 	return g
 }
-func (this *FitGin) Launch() {
+func (self *FitGin) Launch() {
 	var port int32 = 8080
 	if config := Injector.BeanFactory.Get((*SysConfig)(nil)); config != nil {
 		port = config.(*SysConfig).Server.Port
 	}
-	this.applyAll()
+	self.applyAll()
 	getCronTask().Start()
-	this.Run(fmt.Sprintf(":%d", port))
+	self.Run(fmt.Sprintf(":%d", port))
 }
-func (this *FitGin) LaunchWithPort(port int) {
+func (self *FitGin) LaunchWithPort(port int) {
 
-	this.applyAll()
+	self.applyAll()
 	getCronTask().Start()
-	this.Run(fmt.Sprintf(":%d", port))
+	self.Run(fmt.Sprintf(":%d", port))
 }
-func (this *FitGin) Handle(httpMethod, relativePath string, handler interface{}) *FitGin {
+func (self *FitGin) Handle(httpMethod, relativePath string, handler interface{}) *FitGin {
 	if h := Convert(handler); h != nil {
 		methods := strings.Split(httpMethod, ",")
 		for _, method := range methods {
-			getInnerRouter().addRoute(method, this.getPath(relativePath), h) // for future
-			this.g.Handle(method, relativePath, h)
+			getInnerRouter().addRoute(method, self.getPath(relativePath), h) // for future
+			self.g.Handle(method, relativePath, h)
 		}
 
 	}
-	return this
+	return self
 }
-func (this *FitGin) getPath(relativePath string) string {
-	g := "/" + this.currentGroup
+func (self *FitGin) getPath(relativePath string) string {
+	g := "/" + self.currentGroup
 	if g == "/" {
 		g = ""
 	}
@@ -84,42 +84,42 @@ func (this *FitGin) getPath(relativePath string) string {
 	g = strings.Replace(g, "//", "/", -1)
 	return g
 }
-func (this *FitGin) HandleWithFairing(httpMethod, relativePath string, handler interface{}, fairings ...Fairing) *FitGin {
+func (self *FitGin) HandleWithFairing(httpMethod, relativePath string, handler interface{}, fairings ...Fairing) *FitGin {
 	if h := Convert(handler); h != nil {
 		methods := strings.Split(httpMethod, ",")
 		for _, f := range fairings {
 			Injector.BeanFactory.Apply(f)
 		}
 		for _, method := range methods {
-			getInnerRouter().addRoute(method, this.getPath(relativePath), fairings) //for future
-			this.g.Handle(method, relativePath, h)
+			getInnerRouter().addRoute(method, self.getPath(relativePath), fairings) //for future
+			self.g.Handle(method, relativePath, h)
 		}
 
 	}
-	return this
+	return self
 }
 
 // 注册中间件
-func (this *FitGin) Attach(f ...Fairing) *FitGin {
+func (self *FitGin) Attach(f ...Fairing) *FitGin {
 	for _, f1 := range f {
 		Injector.BeanFactory.Set(f1)
 	}
 	getFairingHandler().AddFairing(f...)
-	return this
+	return self
 }
 
-func (this *FitGin) Beans(beans ...Bean) *FitGin {
+func (self *FitGin) Beans(beans ...Bean) *FitGin {
 	for _, bean := range beans {
-		this.exprData[bean.Name()] = bean
+		self.exprData[bean.Name()] = bean
 		Injector.BeanFactory.Set(bean)
 	}
-	return this
+	return self
 }
-func (this *FitGin) Config(cfgs ...interface{}) *FitGin {
+func (self *FitGin) Config(cfgs ...interface{}) *FitGin {
 	Injector.BeanFactory.Config(cfgs...)
-	return this
+	return self
 }
-func (this *FitGin) applyAll() {
+func (self *FitGin) applyAll() {
 	for t, v := range Injector.BeanFactory.GetBeanMapper() {
 		if t.Elem().Kind() == reflect.Struct {
 			Injector.BeanFactory.Apply(v.Interface())
@@ -127,25 +127,25 @@ func (this *FitGin) applyAll() {
 	}
 }
 
-func (this *FitGin) Mount(group string, classes ...IClass) *FitGin {
-	this.g = this.Group(group)
+func (self *FitGin) Mount(group string, classes ...IClass) *FitGin {
+	self.g = self.Group(group)
 	for _, class := range classes {
-		this.currentGroup = group
-		class.Build(this)
-		//this.beanFactory.inject(class)
-		this.Beans(class)
+		self.currentGroup = group
+		class.Build(self)
+		//self.beanFactory.inject(class)
+		self.Beans(class)
 	}
-	return this
+	return self
 }
 
 // 0/3 * * * * *  //增加定时任务
-func (this *FitGin) Task(cron string, expr interface{}) *FitGin {
+func (self *FitGin) Task(cron string, expr interface{}) *FitGin {
 	var err error
 	if f, ok := expr.(func()); ok {
 		_, err = getCronTask().AddFunc(cron, f)
 	} else if exp, ok := expr.(Expr); ok {
 		_, err = getCronTask().AddFunc(cron, func() {
-			_, expErr := ExecExpr(exp, this.exprData)
+			_, expErr := ExecExpr(exp, self.exprData)
 			if expErr != nil {
 				log.Println(expErr)
 			}
@@ -155,5 +155,5 @@ func (this *FitGin) Task(cron string, expr interface{}) *FitGin {
 	if err != nil {
 		log.Println(err)
 	}
-	return this
+	return self
 }

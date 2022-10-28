@@ -39,26 +39,26 @@ func Convert(handler interface{}) gin.HandlerFunc {
 
 type StringResponder func(*gin.Context) string
 
-func (this StringResponder) RespondTo() gin.HandlerFunc {
+func (self StringResponder) RespondTo() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		context.String(200, getFairingHandler().handlerFairing(this, context).(string))
+		context.String(200, getFairingHandler().handlerFairing(self, context).(string))
 	}
 }
 
 type Json interface{}
 type JsonResponder func(*gin.Context) Json
 
-func (this JsonResponder) RespondTo() gin.HandlerFunc {
+func (self JsonResponder) RespondTo() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		context.JSON(200, getFairingHandler().handlerFairing(this, context))
+		context.JSON(200, getFairingHandler().handlerFairing(self, context))
 	}
 }
 
 type SqlQueryResponder func(*gin.Context) Query
 
-func (this SqlQueryResponder) RespondTo() gin.HandlerFunc {
+func (self SqlQueryResponder) RespondTo() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		getQuery := getFairingHandler().handlerFairing(this, context).(Query)
+		getQuery := getFairingHandler().handlerFairing(self, context).(Query)
 		ret, err := queryForMapsByInterface(getQuery)
 		if err != nil {
 			panic(err)
@@ -69,9 +69,9 @@ func (this SqlQueryResponder) RespondTo() gin.HandlerFunc {
 
 type SqlResponder func(*gin.Context) SimpleQuery
 
-func (this SqlResponder) RespondTo() gin.HandlerFunc {
+func (self SqlResponder) RespondTo() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		getSql := getFairingHandler().handlerFairing(this, context).(SimpleQuery)
+		getSql := getFairingHandler().handlerFairing(self, context).(SimpleQuery)
 		ret, err := queryForMaps(string(getSql), nil, []interface{}{}...)
 		if err != nil {
 			panic(err)
@@ -83,9 +83,9 @@ func (this SqlResponder) RespondTo() gin.HandlerFunc {
 type Void struct{}
 type VoidResponder func(ctx *gin.Context) Void
 
-func (this VoidResponder) RespondTo() gin.HandlerFunc {
+func (self VoidResponder) RespondTo() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		getFairingHandler().handlerFairing(this, context)
+		getFairingHandler().handlerFairing(self, context)
 	}
 }
 
@@ -93,8 +93,8 @@ func (this VoidResponder) RespondTo() gin.HandlerFunc {
 type View string
 type ViewResponder func(*gin.Context) View
 
-func (this ViewResponder) RespondTo() gin.HandlerFunc {
+func (self ViewResponder) RespondTo() gin.HandlerFunc {
 	return func(context *gin.Context) {
-		context.HTML(200, string(this(context))+".html", context.Keys)
+		context.HTML(200, string(self(context))+".html", context.Keys)
 	}
 }

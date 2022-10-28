@@ -10,14 +10,14 @@ func NewTestFairing() *TestFairing {
 	return &TestFairing{}
 }
 
-func (this *TestFairing) OnRequest(ctx *gin.Context) error {
+func (self *TestFairing) OnRequest(ctx *gin.Context) error {
 	if name, exists := ctx.Get("name"); exists {
-		name = "this is " + name.(string)
+		name = "self is " + name.(string)
 		ctx.Set("name", name)
 	}
 	return nil
 }
-func (this *TestFairing) OnResponse(ret interface{}) (interface{}, error) {
+func (self *TestFairing) OnResponse(ret interface{}) (interface{}, error) {
 	if str, ok := ret.(string); ok {
 		str = "test_" + str
 		return str, nil

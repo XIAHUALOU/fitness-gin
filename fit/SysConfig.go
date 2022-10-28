@@ -38,7 +38,7 @@ type SysConfig struct {
 	Config UserConfig
 }
 
-func (this *SysConfig) Name() string {
+func (self *SysConfig) Name() string {
 	return "SysConfig"
 }
 

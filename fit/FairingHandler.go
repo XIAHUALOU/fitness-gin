@@ -23,24 +23,24 @@ func NewFairingHandler() *FairingHandler {
 	return &FairingHandler{}
 }
 
-func (this *FairingHandler) AddFairing(f ...Fairing) {
+func (self *FairingHandler) AddFairing(f ...Fairing) {
 	if f != nil && len(f) > 0 {
 
-		this.fairings = append(this.fairings, f...)
+		self.fairings = append(self.fairings, f...)
 	}
 
 }
-func (this *FairingHandler) before(ctx *gin.Context) {
-	for _, f := range this.fairings {
+func (self *FairingHandler) before(ctx *gin.Context) {
+	for _, f := range self.fairings {
 		err := f.OnRequest(ctx)
 		if err != nil {
 			Throw(err.Error(), 400, ctx)
 		}
 	}
 }
-func (this *FairingHandler) after(ctx *gin.Context, ret interface{}) interface{} {
+func (self *FairingHandler) after(ctx *gin.Context, ret interface{}) interface{} {
 	var result = ret
-	for _, f := range this.fairings {
+	for _, f := range self.fairings {
 		r, err := f.OnResponse(result)
 		if err != nil {
 			Throw(err.Error(), 400, ctx)
@@ -49,8 +49,8 @@ func (this *FairingHandler) after(ctx *gin.Context, ret interface{}) interface{}
 	}
 	return result
 }
-func (this *FairingHandler) handlerFairing(responder Responder, ctx *gin.Context) interface{} {
-	this.before(ctx)
+func (self *FairingHandler) handlerFairing(responder Responder, ctx *gin.Context) interface{} {
+	self.before(ctx)
 	var ret interface{}
 	innerNode := getInnerRouter().getRoute(ctx.Request.Method, ctx.Request.URL.Path)
 	var innerFairingHandler *FairingHandler

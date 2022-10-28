@@ -19,12 +19,12 @@ type Expr string //表达式类型
 // 可比较表达式 解析类， 譬如a>3   b!=4 a!=n    a>3  [gt .a  3]
 type ComparableExpr string
 
-func (this ComparableExpr) filter() string {
+func (self ComparableExpr) filter() string {
 	reg, err := regexp.Compile(ComparePattern)
 	if err != nil {
 		return ""
 	}
-	ret := reg.FindStringSubmatch(string(this))
+	ret := reg.FindStringSubmatch(string(self))
 	if ret != nil && len(ret) == 4 {
 		token := getCompareToken(ret[2])
 		if token == "" {
@@ -38,7 +38,7 @@ func (this ComparableExpr) filter() string {
 // 普通表达式，如 .user.Age  .user.Info(101)
 type SimpleExpr string
 
-func (this SimpleExpr) filter() string {
+func (self SimpleExpr) filter() string {
 	// 处理括号里面的参数
 	return ""
 }

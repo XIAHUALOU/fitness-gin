@@ -11,7 +11,7 @@ type GormAdapter struct {
 	*gorm.DB
 }
 
-func (this *GormAdapter) Name() string {
+func (self *GormAdapter) Name() string {
 	return "GormAdapter"
 }
 func NewGormAdapter() *GormAdapter {

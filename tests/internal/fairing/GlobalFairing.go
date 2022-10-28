@@ -13,12 +13,12 @@ func NewGlobalFairing() *GlobalFairing {
 	return &GlobalFairing{}
 }
 
-func (this *GlobalFairing) OnRequest(ctx *gin.Context) error {
+func (self *GlobalFairing) OnRequest(ctx *gin.Context) error {
 	ctx.Set("name", " global name ")
 	return nil
 }
-func (this *GlobalFairing) OnResponse(ret interface{}) (interface{}, error) {
-	//fmt.Println(this.DB)
+func (self *GlobalFairing) OnResponse(ret interface{}) (interface{}, error) {
+	//fmt.Println(self.DB)
 	if str, ok := ret.(string); ok {
 		str = str + "_global"
 		return str, nil

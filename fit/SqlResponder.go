@@ -30,35 +30,35 @@ func NewSimpleQueryWithFetchFirst(sql string) *SimpleQueryWithArgs {
 func NewSimpleQueryWithKey(sql string, key string) *SimpleQueryWithArgs {
 	return &SimpleQueryWithArgs{sql: sql, datakey: key}
 }
-func (this *SimpleQueryWithArgs) Sql() string {
-	return this.sql
+func (self *SimpleQueryWithArgs) Sql() string {
+	return self.sql
 }
-func (this *SimpleQueryWithArgs) Mapping() map[string]string {
-	return this.mapping
+func (self *SimpleQueryWithArgs) Mapping() map[string]string {
+	return self.mapping
 }
-func (this *SimpleQueryWithArgs) Args() []interface{} {
-	return this.args
+func (self *SimpleQueryWithArgs) Args() []interface{} {
+	return self.args
 }
-func (this *SimpleQueryWithArgs) First() bool {
-	return this.fetchFirst
+func (self *SimpleQueryWithArgs) First() bool {
+	return self.fetchFirst
 }
-func (this *SimpleQueryWithArgs) Key() string {
-	return this.datakey
+func (self *SimpleQueryWithArgs) Key() string {
+	return self.datakey
 }
-func (this *SimpleQueryWithArgs) WithMapping(mapping map[string]string) *SimpleQueryWithArgs {
-	this.mapping = mapping
-	return this
+func (self *SimpleQueryWithArgs) WithMapping(mapping map[string]string) *SimpleQueryWithArgs {
+	self.mapping = mapping
+	return self
 }
-func (this *SimpleQueryWithArgs) WithFirst() *SimpleQueryWithArgs {
-	this.fetchFirst = true
-	return this
+func (self *SimpleQueryWithArgs) WithFirst() *SimpleQueryWithArgs {
+	self.fetchFirst = true
+	return self
 }
-func (this *SimpleQueryWithArgs) WithKey(key string) *SimpleQueryWithArgs {
-	this.datakey = key
-	return this
+func (self *SimpleQueryWithArgs) WithKey(key string) *SimpleQueryWithArgs {
+	self.datakey = key
+	return self
 }
-func (this *SimpleQueryWithArgs) Get() interface{} {
-	ret, err := queryForMapsByInterface(this)
+func (self *SimpleQueryWithArgs) Get() interface{} {
+	ret, err := queryForMapsByInterface(self)
 	if err != nil {
 		log.Println("query get error:", err)
 		return nil
@@ -68,33 +68,33 @@ func (this *SimpleQueryWithArgs) Get() interface{} {
 
 type SimpleQuery string
 
-func (this SimpleQuery) WithArgs(args ...interface{}) *SimpleQueryWithArgs {
-	return NewSimpleQueryWithArgs(string(this), args)
+func (self SimpleQuery) WithArgs(args ...interface{}) *SimpleQueryWithArgs {
+	return NewSimpleQueryWithArgs(string(self), args)
 }
-func (this SimpleQuery) WithMapping(mapping map[string]string) *SimpleQueryWithArgs {
-	return NewSimpleQueryWithMapping(string(this), mapping)
+func (self SimpleQuery) WithMapping(mapping map[string]string) *SimpleQueryWithArgs {
+	return NewSimpleQueryWithMapping(string(self), mapping)
 }
-func (this SimpleQuery) WithFirst() *SimpleQueryWithArgs {
-	return NewSimpleQueryWithFetchFirst(string(this))
+func (self SimpleQuery) WithFirst() *SimpleQueryWithArgs {
+	return NewSimpleQueryWithFetchFirst(string(self))
 }
-func (this SimpleQuery) WithKey(key string) *SimpleQueryWithArgs {
-	return NewSimpleQueryWithKey(string(this), key)
+func (self SimpleQuery) WithKey(key string) *SimpleQueryWithArgs {
+	return NewSimpleQueryWithKey(string(self), key)
 }
-func (this SimpleQuery) First() bool {
+func (self SimpleQuery) First() bool {
 	return false
 }
-func (this SimpleQuery) Sql() string {
-	return string(this)
+func (self SimpleQuery) Sql() string {
+	return string(self)
 }
-func (this SimpleQuery) Key() string {
+func (self SimpleQuery) Key() string {
 	return ""
 }
-func (this SimpleQuery) Args() []interface{} {
+func (self SimpleQuery) Args() []interface{} {
 	return []interface{}{}
 }
-func (this SimpleQuery) Mapping() map[string]string {
+func (self SimpleQuery) Mapping() map[string]string {
 	return map[string]string{}
 }
-func (this SimpleQuery) Get() interface{} {
-	return NewSimpleQueryWithArgs(string(this), nil).Get()
+func (self SimpleQuery) Get() interface{} {
+	return NewSimpleQueryWithArgs(string(self), nil).Get()
 }

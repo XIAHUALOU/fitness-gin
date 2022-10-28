@@ -17,17 +17,17 @@ func NewFitGinTree() *FitGinTree {
 	}
 	return tree
 }
-func (this *FitGinTree) addRoute(method, path string, handlers interface{}) {
-	root := this.trees.get(method)
+func (self *FitGinTree) addRoute(method, path string, handlers interface{}) {
+	root := self.trees.get(method)
 	if root == nil {
 		root = new(node)
 		root.fullPath = "/"
-		this.trees = append(this.trees, methodTree{method: method, root: root})
+		self.trees = append(self.trees, methodTree{method: method, root: root})
 	}
 	root.addRoute(path, handlers)
 }
-func (this *FitGinTree) getRoute(httpMethod, path string) nodeValue {
-	t := this.trees
+func (self *FitGinTree) getRoute(httpMethod, path string) nodeValue {
+	t := self.trees
 	for i, tl := 0, len(t); i < tl; i++ {
 		if t[i].method != httpMethod {
 			continue

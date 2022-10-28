@@ -54,8 +54,8 @@ type TaskExecutor struct {
 func NewTaskExecutor(f TaskFunc, p []interface{}, callback func()) *TaskExecutor {
 	return &TaskExecutor{f: f, p: p, callback: callback}
 }
-func (this *TaskExecutor) Exec() { //执行任务
-	this.f(this.p...)
+func (self *TaskExecutor) Exec() { //执行任务
+	self.f(self.p...)
 }
 func Task(f TaskFunc, cb func(), params ...interface{}) {
 	if f == nil {

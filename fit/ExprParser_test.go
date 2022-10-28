@@ -5,7 +5,7 @@ import "testing"
 func TestComparableExpr_filter(t *testing.T) {
 	tests := []struct {
 		name string
-		this ComparableExpr
+		self ComparableExpr
 		want string
 	}{
 		{"w1", ComparableExpr("a>3"), "gt .a 3"},
@@ -19,7 +19,7 @@ func TestComparableExpr_filter(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.this.filter(); got != tt.want {
+			if got := tt.self.filter(); got != tt.want {
 				t.Errorf("ComparableExpr.filter() = %v, want %v", got, tt.want)
 			}
 		})

@@ -96,7 +96,7 @@ func cleanPath(p string) string {
 }
 
 // Internal helper to lazily create a buffer if necessary.
-// Calls to this function get inlined.
+// Calls to self function get inlined.
 func bufApp(buf *[]byte, s string, w int, c byte) {
 	b := *buf
 	if len(b) == 0 {

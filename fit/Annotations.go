@@ -33,12 +33,12 @@ type Value struct {
 	tag reflect.StructTag
 }
 
-func (this *Value) SetTag(tag reflect.StructTag) {
-	this.tag = tag
+func (self *Value) SetTag(tag reflect.StructTag) {
+	self.tag = tag
 }
 
-func (this *Value) String() string {
-	get_prefix := this.tag.Get("prefix")
+func (self *Value) String() string {
+	get_prefix := self.tag.Get("prefix")
 	if get_prefix == "" {
 		return ""
 	}

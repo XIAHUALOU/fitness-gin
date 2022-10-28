@@ -9,6 +9,6 @@ type NameService struct {
 func NewNameService(myName string) *NameService {
 	return &NameService{MyName: myName}
 }
-func (this *NameService) ShowName() {
-	fmt.Println(this.MyName)
+func (self *NameService) ShowName() {
+	fmt.Println(self.MyName)
 }
